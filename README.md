@@ -1,6 +1,6 @@
 # Zerofloat — User Manual
 
-Version 0.1.0 · macOS (Apple silicon)
+Version 0.2.0 · macOS (Apple silicon) and Windows (x64)
 
 Zerofloat is a tool for the video engineer of a live event. It has two halves:
 
@@ -39,8 +39,12 @@ deletes a file in the show.
 
 ## 1. Install and first opening
 
-The release is at <https://github.com/tjaY-k/zerofloat-releases/releases>. Download `Zerofloat-<version>.dmg` and
-open it. It holds:
+The release is at <https://github.com/tjaY-k/zerofloat-releases/releases>. The pictures in this manual are of the
+Mac; the Windows window is the same, with **Ctrl** where a Mac has **⌘** and **Alt** for **Option**.
+
+### On a Mac
+
+Download `Zerofloat-<version>.dmg` and open it. It holds:
 
 | Item | What it is |
 |---|---|
@@ -56,15 +60,29 @@ developer. There are two ways past it, and you only need to do this once:
 - Right-click Zerofloat in Applications and choose **Open**, then **Open** again; or
 - open it once, then go to **System Settings › Privacy & Security** and click **Open Anyway** beside Zerofloat.
 
+### On Windows
+
+Download `Zerofloat-<version>-win-x64.zip`, unpack it anywhere and open **Install Zerofloat.cmd** in the folder
+`Zerofloat`: it copies the program to your own programs folder (`%LOCALAPPDATA%\Programs\Zerofloat`, no administrator
+asked), puts Zerofloat in the Start menu and on the desktop, and starts it. Or keep the unpacked folder where you like —
+**not** in Program Files: an update replaces this folder, and Program Files would ask an administrator each time. The
+folder holds `zf.exe` (the program), `zf-console.exe` (the command line), the Buttons module, *Read me first.txt* and
+this manual.
+
+**The first opening.** This test version is not signed. The first time, Windows says *Windows protected your PC*:
+click **More info**, then **Run anyway**. Only once.
+
+### Both
+
 **What the program needs.** ffmpeg is inside the application: it reads every common format and writes Hap, Hap Q and
 Hap Alpha. Two things are optional:
 
-- **ODA File Converter** (free, from the Open Design Alliance), installed in `/Applications`. Without it a DWG
-  drawing cannot be read; a DXF can.
+- **ODA File Converter** (free, from the Open Design Alliance), installed where its installer puts it
+  (`/Applications` on a Mac, `Program Files\ODA` on Windows). Without it a DWG drawing cannot be read; a DXF can.
 - **A network that reaches disguise.** Designer's Python API and Session API answer on port 80, and the servers'
   `d3 Projects` shares are reached as a guest.
 
-**Settings** are kept in `~/Library/Application Support/Zerofloat`. The program's cache (thumbnails, transcodes,
+**Settings** are kept in `~/Library/Application Support/Zerofloat` on a Mac and in `%APPDATA%\Zerofloat` on Windows. The program's cache (thumbnails, transcodes,
 logs of each placement) is the machine's own; nothing is written beside a project file.
 
 ---
@@ -77,9 +95,11 @@ logs of each placement) is the machine's own; nothing is written beside a projec
   the left:
   - Preproduction: LED, Projection, Stage, Documents.
   - Show: Files and Playback.
-- **The tree** (⌘0 shows or hides it) lists the pages and how many things each holds. Click a row to open its page.
-- **The region badge** (for example *UAE · 230 V · 50 Hz*) sets the mains voltage and frequency of the job. These
-  decide the current drawn and the default frame rate: 50 Hz gives 25/50 fps, 60 Hz gives 30/60 fps.
+- **The Navigator** on the left (⌘0 shows or hides it) lists the pages and how many things each holds. Click a row to
+  open its page.
+- **The mains badge** (for example *230 V · 50 Hz*) sets the mains voltage and frequency of the job: click it (or use
+  Edit › Mains…) and type the voltage, 50 to 1000 V, and choose 50 or 60 Hz. These decide the current drawn and the
+  default frame rate: 50 Hz gives 25/50 fps, 60 Hz gives 30/60 fps.
 - **New, Open, Save, Build** are on the right. Build is Preproduction's only.
 - **The equipment panel** (⌘E, or the *Equipment* tab on the right edge) lists the job's kit beside any page:
   - the machines and the LED;
@@ -89,6 +109,9 @@ logs of each placement) is the machine's own; nothing is written beside a projec
 
   It follows every change a moment later.
 - **The status bar** at the bottom says what the program is doing and what a job left out.
+
+**The mouse wheel** turns a number or a list only in the field that has the focus; over any other it scrolls the page.
+**Help › What's New** lists what changed in each version, and it is shown once by itself after an update.
 
 **Every page has the same three columns**: a list on the left with *Add · Duplicate · Remove* at its foot, the picture
 in the middle with tiles of figures under it, and the inspector on the right with the fields and the **Checks**. A
@@ -124,7 +147,8 @@ Saving rewrites the file from what the program holds. Comments typed into the fi
 
 *Preproduction › LED › Screens* (⌘1).
 
-**Add** makes a screen. Its **Size** is typed as a sentence the program reads:
+**Add** makes a screen. Its **Size** is three fields: the width and the height in metres, and the pitch (*3.9*).
+In *Preferences* it can be one line instead, typed as a sentence the program reads:
 
 ```
 20 x 10 m P3.9
@@ -182,12 +206,16 @@ in one go. The clips go to the job line; they do not stop you working.
 
 A canvas is one picture at one resolution with several screens standing on it, as a media server is often fed.
 
-1. **Add** a canvas and tick the screens that stand on it.
+1. **Add** a canvas and tick the screens that stand on it, or **Add group** to put every screen of a group on it at
+   once. A screen may stand on several canvases.
 2. **Arrange** lays them out in the least area, never wider than 16 384 px.
-3. To place a screen yourself, drag it in the picture, or type its **x** and **y**. A dragged screen snaps to the edges
-   near it and to the middle of the whole canvas.
+3. To place a screen yourself, drag it in the picture, or type its **x** and **y**. Each screen is drawn as its panels
+   (a shape's missing panels left empty), and a dragged screen snaps to the edges near it, to another screen's panel
+   joints and to the middle of the whole canvas.
 
-The canvas's size follows from the screens. Screens that overlap are refused, and empty places are transparent. The
+The canvas's size follows from the screens, and it begins where they do: its left edge is the leftmost screen's and its
+top the topmost screen's, so there is no empty strip beside or above them. Screens that overlap are refused (two shaped screens may nest where their
+panels do not meet), and empty places are transparent. The
 canvas becomes an extra page of the Pixel Map. It takes no part in the Output Map or the equipment list.
 
 ---
@@ -206,7 +234,8 @@ A **flat wall** is a size in metres and a projector, typed as an LED screen is (
 the projector's resolution and orientation.
 
 - **Full resolution** and **Round to a multiple of** decide the pixel size.
-- **Fine**, **Heavy** and **Circle** decide the metric test pattern.
+- **Thin lines**, **Thick lines** (how far apart, in metres) and **Circles** (how wide) decide the metric test pattern.
+  On a wall counted in parts, the Preview draws each projector's part on the pattern, numbered.
 
 **Add from an OBJ model…** takes a 3D model instead. Its test grid is drawn on the model's own UV map.
 
@@ -258,11 +287,14 @@ A login and password are typed for that one file and never saved in the project.
 - the models;
 - the export's projectors with the pyramid of their light.
 
-To move around: drag to turn, scroll to come nearer, double-click a thing to go to it. *Front*, *Top* and *Whole venue*
-set the view.
+To move around: drag to turn, scroll to come nearer, drag with the middle button (or Shift on the floor) to look
+sideways, double-click a thing to go to it. *Front*, *Top* and *Whole venue* set the view.
 
-To change the chosen thing: drag to move it, Shift to move it up and down, Option to turn it. Its X, Y, Z and the
-turn and tilt are in the inspector.
+To change the chosen thing, use its **gizmo**. It has two modes, chosen by *Move* and *Rotate* under the picture (or the
+keys W and E): in *Move* drag a red, green or blue **arrow** to move it along disguise's X, Y or Z; in *Rotate* drag a
+**ring** to turn it about that axis (Shift: in steps of 10 cm and 15°). The gizmo is as big on the picture as the thing
+is, between a small and a large size, so it grows smaller as you draw away. Dragging the thing itself still moves
+it on its level (Shift up and down, Option turns it). Its X, Y, Z and the three turns are in the inspector.
 
 What stands nowhere (a screen added by hand, a projector by hand) is drawn in a row on the floor, in rust colour. The
 screens can show their test pattern or the content placed for them.
@@ -271,7 +303,9 @@ screens can show their test pattern or the content placed for them.
 in the project open in a running Designer, through its Python API.
 
 - Each LED screen's grid goes in as a one-frame Hap Alpha movie, laid on its screen.
-- Name the Designer machine there.
+- *Check* lists what it would do with a tick for each thing: untick what is not to go into disguise; its grid, test
+  pattern and layer stay out with it.
+- Name the Designer machine there (on Windows it is this computer, *localhost*, unless the project names another).
 - The disguise project is the one chosen on the Files page (section 9).
 
 ---
@@ -285,7 +319,7 @@ in the project open in a running Designer, through its Python API.
 | Document | For | What it holds |
 |---|---|---|
 | **Pixel Map** | the client and the content makers | a cover, a page for each LED screen and projection surface, the canvases, and the **Content Delivery Specification** as its last page |
-| **Output Map** | the crew | how the LED is patched: which output of which server feeds which piece of which screen |
+| **Output Map** | the crew | how the LED is patched: which output of which server feeds which piece of which screen, then every output as its frame, four to a page, with rulers in pixels |
 | **Projection Study** | the crew and the client | the projectors, the lenses, the light, the towers and the power plan |
 
 - **Landscape / Portrait** decide how the pages stand. Both are A3.
@@ -374,7 +408,8 @@ perfect…).
 1. A file disguise cannot play is **transcoded first**:
    - Hap Q by default, or Hap Alpha for a picture or a source with alpha;
    - Hap, Hap Alpha or DXV 2 if you choose;
-   - its sound goes to a WAV in `AudioFile/`.
+   - its sound goes to a WAV in `AudioFile/`, stays inside the movie, or is left out (*No sound*), as the transcode
+     settings say; the player's own transcode has a *No sound* box too.
 2. Every copy is checked against its source.
 3. A file already in the show is left out.
 4. The client's file is moved into `Placed/` inside the incoming folder. **A source is never deleted.**
@@ -417,7 +452,10 @@ each machine's `d3 Projects` share as a guest and lists, for each machine:
 - Each copy is written under a temporary name and renamed only when it is whole and checked. With *Read each copy
   back and check it* on, it is read back too.
 - Each machine's free space is checked before the copy starts.
-- *Files at once per machine* (1 to 6) sets the speed. 4 suits a 10 Gbit network.
+- *Files at once per machine* (1 to 6) sets the speed. 4 suits a 10 Gbit network. A machine is written the next file
+  while the last one is read back.
+- **Speed test** (under *Network*, once the servers are read) writes 1 GB to each machine, reads it back and removes
+  it, and says how fast each link is both ways.
 
 **Undo last copy…** removes what the last copy wrote, if it is unchanged. **Remove leftover parts…** clears pieces an
 interrupted copy left.
@@ -452,7 +490,16 @@ was.
 - The line over the cues picks the group shown; *All cues* shows everything.
 - **GO goes through the group shown and stops at its end.** It never runs on into the next group; start that group by
   pressing its first cue.
-- A **pinned** group is shown over the others whatever group is open. Its cues are pressed by hand and do not move GO.
+- A **pinned** group is shown over the others whatever group is open, in a blue frame. Its cues are pressed by hand and
+  do not move GO.
+- The **+** at the end of a line of groups adds a group there. Drag a group onto another to put it inside it, or onto
+  *All cues* to bring it back to the top.
+
+**The countdown** on the right says the section playing now (*NOW: …*), what comes next on the track and, when a video
+layer plays, how long until the end of that video.
+
+**Lock cues** (beside *Edit cues*): while it is on, a click, GO, the Buttons module and OSC send nothing; what was
+pressed is written in the log. If the window ever hangs, a press in Buttons is still sent.
 
 **A latch** is a cue with two halves, ON and OFF (for example haze on and haze off). Each press sends the other half.
 
@@ -465,7 +512,8 @@ was.
   - go to a time, a timecode or a track;
   - brightness, volume.
 
-  Choose its destination and colour, and its second half if it is a latch.
+  Choose its destination and colour (a row of swatches), and its second half if it is a latch. A new destination is
+  disguise's Session API or a TimeCore; OSC and MultiTransport destinations of older projects still work.
 - **Cues from the timeline…**: a tree of transport › track › CUE tag, read from disguise. Tick what you want, and one
   cue is made for each tag.
 - **New group…, Rename group…, Remove group, Pin group.**
@@ -505,6 +553,8 @@ button chooses which one is shown.
 **Timecode generated.** Tick LTC, MTC or Art-Net, choose the outputs and *Start at*. Start, Stop and Go to are under
 the clock on the Show page while it generates.
 
+On Windows MIDI is not reached yet: MTC is switched off there, and timecode goes as LTC or Art-Net.
+
 **Remote: Stream Deck / Companion.**
 
 - **Listen for OSC** (port 9000): `/zf/cue/<number>` sends a cue, `/zf/cue/<number>/on` and `/off` the halves of a
@@ -530,9 +580,11 @@ buttons that stay in step with the Show page.
 - *GO and transport* has GO (with the next cue's name), NOW, the countdown and the transport buttons.
 
 **Lights.** NOW is gold, NEXT is gold text, a latch that is ON is green, and a cue whose destination is missing is
-red.
+red. A cue's button has the cue's colour and its name, and both change on the button when they change in Zerofloat
+(module 1.1.0: import it again after updating).
 
-**Variables.** `now`, `next`, `countdown`, `section`, `group`, and the same for each transport.
+**Variables.** `now`, `next`, `countdown`, `section`, `group`, the same for each transport, and for each cue
+`cue_<number>_name` and `cue_<number>_countdown` (cue 1.2 is `cue_1_2`).
 
 When cues are added in Zerofloat, drag the group onto the buttons again. A press on a button is a press on the Show
 page.
@@ -557,6 +609,8 @@ placement, a copy to the servers, a transcode, a build or a render is running.
 
 ## 15. Keyboard shortcuts
 
+As a Mac writes them; on Windows **Ctrl** stands for **⌘** and **Shift** for **⇧** (Ctrl+N, Ctrl+Shift+S, …).
+
 | Keys | Does |
 |---|---|
 | ⌘N / ⌘O / ⌘S / ⇧⌘S | New, Open, Save, Save As |
@@ -576,15 +630,17 @@ placement, a copy to the servers, a transcode, a build or a render is running.
 
 ## 16. When something goes wrong
 
-- **"Zerofloat cannot be opened because the developer cannot be verified."** See the first opening in section 1.
-- **A DWG does not open.** Install the ODA File Converter in `/Applications`.
-- **The show's pill is red, or Place is refused.** The disguise project's share is not mounted or cannot be written
-  to. Mount `d3 Projects` from the Designer in Finder, then choose the project folder again on the Files page.
+- **"Zerofloat cannot be opened because the developer cannot be verified"** (Mac) or **"Windows protected your
+  PC"** (Windows). See the first opening in section 1.
+- **A DWG does not open.** Install the ODA File Converter (section 1).
+- **The show's pill is red, or Place is refused.** The disguise project's share is not reached or cannot be written
+  to. On a Mac, mount `d3 Projects` from the Designer in Finder; on Windows, open `\\<designer>\d3 Projects` in
+  Explorer. Then choose the project folder again on the Files page.
 - **A file is "needs a transcode".** disguise does not play it. Place transcodes it into Hap; you do not have to do it
   elsewhere.
 - **"Resource busy" while placing.** disguise is reading the file that was just put there. The program waits for it,
   up to three minutes.
-- **The lights on Setup are red.** The address is wrong, the machine is off, or this Mac is on another network. The
+- **The lights on Setup are red.** The address is wrong, the machine is off, or this computer is on another network. The
   Session API answers on port 80 of the director.
 - **A cue is drawn with *no destination* in red.** The destination it names was removed. Edit the cue and choose
   another.
