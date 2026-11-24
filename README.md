@@ -108,7 +108,10 @@ logs of each placement) is the machine's own; nothing is written beside a projec
   - the power;
   - what could not be counted.
 
-  It follows every change a moment later.
+  It follows every change a moment later. Two ticks at its top say how the disguise machines are counted, both on
+  in a new project: *Dedicated director* (untick it when the director is one of the actors and outputs signals
+  too: it is then no machine of its own) and *Understudies* (untick it for none; ticked, one for every three
+  actors built alike). The project keeps them, and the equipment list, the Output Map and the study count the same way.
 - **The status bar** at the bottom says what the program is doing and what a job left out.
 
 **The mouse wheel** turns a number or a list only in the field that has the focus; over any other it scrolls the page.
@@ -270,7 +273,7 @@ the projector's resolution and orientation.
   On a wall counted in parts, the Preview draws each projector's part on the pattern, numbered.
 - **Name the cells** letters the columns of the heavy grid along the top (A, B, … Z, AA …) and numbers the rows down
   the left edge, and writes each cell's own name (`C7`) small in its top right corner, as Vioso's calibration pattern
-  does, so that a place on the wall can be called out over the radio. **Print the resolution and the size in metres**
+  does, so that a place on the wall can be called out over the radio. **Print resolution and size**
   puts the picture's pixels and its metres in the middle, under the name, as an LED grid says its resolution. Both are
   on for a wall added in the window, and off in a project that does not say so.
 - **3D model** says which model of the project the wall stands for. **A model a wall is linked to *is* that wall:** it
@@ -509,7 +512,7 @@ type **Aims at** to turn it. It is not turned with a ring. Each move or edit is 
 to the side (with its aim) and *Remove* takes it away. Typing the point it stands on as its aim is refused. With no lens
 chosen it is drawn and lit at a throw of 1.6 (the notes say so); a lens makes it the middle of that lens's range.
 
-A projector added this way is **the project's own**: the list marks it *HAND* (the export's say *from the export*), and
+A projector added this way is **the project's own**: the list marks it *Hand* (the export's say *from the export*), and
 importing an export, or another one over it, never changes or removes it. It counts everywhere the export's projectors
 do: the surface pages of the Projection Study (coverage and brightness), the places (at 2.5 m it is a plain place; above
 3 m a tower, as for the export), the equipment list and its signals (under *By hand*), Projector Grid and the disguise
@@ -1100,3 +1103,11 @@ As a Mac writes them; on Windows **Ctrl** stands for **⌘** and **Shift** for *
   another.
 - **Feedback.** Tell the person who gave you the program, with the version from *Help › About Zerofloat* and what you
   did. Never send a client's project or content.
+
+## Venue: curved surfaces and where a projector looks
+
+Choose a curved surface in the Venue and its circle appears on the floor with three kinds of handle, as in Surfaces › Top: drag
+the centre for the radius (an arc keeps its width), an end of an arc for its angle, a cylinder's seam to turn the canvas. One drag
+is one step of Undo. For a projector added by hand, *Aim at* in the inspector lists the project's surfaces and LED screens and
+aims it at the middle of the one you pick (a curved surface: the middle of its arc); *Aim with the mouse* waits for your next
+click on a screen, surface or model in the 3D view and aims at that point. Esc cancels.
