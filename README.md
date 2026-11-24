@@ -110,7 +110,8 @@ logs of each placement) is the machine's own; nothing is written beside a projec
 
   It follows every change a moment later. Two ticks at its top say how the disguise machines are counted, both on
   in a new project: *Dedicated director* (untick it when the director is one of the actors and outputs signals
-  too: it is then no machine of its own) and *Understudies* (untick it for none; ticked, one for every three
+  too: one of the output servers is then listed as *director (non-dedicated)* with its cards, and the actors are one
+  fewer) and *Understudies* (untick it for none; ticked, one for every three
   actors built alike). The project keeps them, and the equipment list, the Output Map and the study count the same way.
 - **The status bar** at the bottom says what the program is doing and what a job left out.
 
